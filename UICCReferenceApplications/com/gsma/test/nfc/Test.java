@@ -35,6 +35,7 @@ public class Test extends Applet {
 	private FileView mFileView;
 	static final short FID_MASTER_FILE = 0x5F00;
 	static final short FID_FILE_1F00 = (short) 0x1F00;
+	static final short FID_FILE_1F01 = (short) 0x1F01;
 	static final short FILE_SIZE = 128;
 	private byte[] mTmp = new byte[FILE_SIZE];
 	static final byte INS_UPDATE_BINARY = (byte) 0xD6;
@@ -121,7 +122,10 @@ public class Test extends Applet {
 		mFileView.select(FID_MASTER_FILE);
 
 		mFileView.select(FID_FILE_1F00);
+		fillFile(mFileView, FILE_SIZE, (byte) 0xFF);
+		mFileView.select(FID_FILE_1F01);
 		fillFile(mFileView, FILE_SIZE, (byte) 0x00);
+
 	}
 
 	private void fillFile(final FileView fileView, final short fileSize,
