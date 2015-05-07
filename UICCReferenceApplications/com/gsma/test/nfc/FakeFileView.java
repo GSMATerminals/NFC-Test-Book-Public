@@ -32,10 +32,9 @@ public class FakeFileView implements FileView {
 
 	static final short FILE_SIZE = 128;
 	final private byte[] file_1F00 = new byte[FILE_SIZE];
-	final private byte[] file_1F01 = new byte[FILE_SIZE];
+
 	static final short FID_MASTER_FILE = 0x5F00;
 	static final short FID_FILE_1F00 = (short) 0x1F00;
-	static final short FID_FILE_1F01 = (short) 0x1F01;
 
 	static final short SW_BUG = (short) 0x98FF;
 
@@ -107,8 +106,6 @@ public class FakeFileView implements FileView {
 		switch (fid) {
 		case FID_FILE_1F00:
 			return file_1F00;
-		case FID_FILE_1F01:
-			return file_1F01;
 		default:
 			return null;
 		}
@@ -117,7 +114,6 @@ public class FakeFileView implements FileView {
 	private short getFileType(short fid) {
 		switch (fid) {
 		case FID_FILE_1F00:
-		case FID_FILE_1F01:
 			return FILETYPE_TRANSPARENT;
 		default:
 			unsupported();
@@ -132,8 +128,7 @@ public class FakeFileView implements FileView {
 			switch (mSelFid) {
 			case FID_MASTER_FILE:
 			case FID_FILE_1F00:
-			case FID_FILE_1F01:
-				if (fid == FID_FILE_1F00 || fid == FID_FILE_1F01) {
+				if (fid == FID_FILE_1F00) {
 					mSelFid = fid;
 				} else {
 					UICCException.throwIt(UICCException.FILE_NOT_FOUND);
